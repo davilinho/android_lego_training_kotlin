@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lego Kotlin</string>
+    <string name="blank"/>
+    <string name="with_hat">Con gorro</string>
+    <string name="without_hat">Sin gorro</string>
+    <string name="loading">Loading…</string>
+    <string name="all">Todos</string>
+    <string name="see">Ver detalles</string>
+</resources>
