@@ -12,7 +12,4 @@ import javax.inject.Singleton
 class AppModule(val app: CustomApplication) {
     @Provides @Singleton
     fun provideApp() = app
-
-//    @Provides @Singleton
-//    fun provideMediaProvider(): Provider = MediaProvider
 }

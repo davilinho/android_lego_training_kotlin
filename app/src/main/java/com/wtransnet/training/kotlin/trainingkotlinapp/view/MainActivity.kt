@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.wtransnet.training.kotlin.trainingkotlinapp.R
 import com.wtransnet.training.kotlin.trainingkotlinapp.app
+import com.wtransnet.training.kotlin.trainingkotlinapp.log.Logger
 import com.wtransnet.training.kotlin.trainingkotlinapp.model.LegoItem
 import com.wtransnet.training.kotlin.trainingkotlinapp.modules.MainModule
 import com.wtransnet.training.kotlin.trainingkotlinapp.navigateTo
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity(), IMainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Logger.instance.debug<MainActivity>("Iniciando onCreate")
         inject()
         initSwipe()
         initAdapter()
@@ -58,6 +60,7 @@ class MainActivity : AppCompatActivity(), IMainView {
             data = list
             notifyDataSetChanged()
         }
+        Logger.instance.info<MainActivity>("Recuperados un total de ${list.size} legos!")
         snack("Recuperados un total de ${list.size} legos!")
         callback()
     }
