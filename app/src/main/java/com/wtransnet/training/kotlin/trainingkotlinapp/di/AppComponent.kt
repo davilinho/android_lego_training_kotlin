@@ -1,6 +1,6 @@
 package com.wtransnet.training.kotlin.trainingkotlinapp.di
 
-import com.wtransnet.training.kotlin.trainingkotlinapp.CustomApplication
+import com.wtransnet.training.kotlin.trainingkotlinapp.app.CustomApplication
 import com.wtransnet.training.kotlin.trainingkotlinapp.modules.DetailComponent
 import com.wtransnet.training.kotlin.trainingkotlinapp.modules.DetailModule
 import com.wtransnet.training.kotlin.trainingkotlinapp.modules.MainComponent

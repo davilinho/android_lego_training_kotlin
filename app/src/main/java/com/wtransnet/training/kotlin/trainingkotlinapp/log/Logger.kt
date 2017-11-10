@@ -30,7 +30,17 @@ class Logger private constructor() {
     }
 
     @DebugLog
+    inline fun <reified T> warning(message: String, t: Throwable) {
+        Log.w(T::class.java.simpleName, message, t)
+    }
+
+    @DebugLog
     inline fun <reified T> error(message: String) {
         Log.e(T::class.java.simpleName, message)
+    }
+
+    @DebugLog
+    inline fun <reified T> error(message: String, t: Throwable) {
+        Log.e(T::class.java.simpleName, message, t)
     }
 }

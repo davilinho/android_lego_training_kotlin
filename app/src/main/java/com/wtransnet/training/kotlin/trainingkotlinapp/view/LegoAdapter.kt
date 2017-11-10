@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.wtransnet.training.kotlin.trainingkotlinapp.R
-import com.wtransnet.training.kotlin.trainingkotlinapp.loadUrl
-import com.wtransnet.training.kotlin.trainingkotlinapp.mapLegoType
+import com.wtransnet.training.kotlin.trainingkotlinapp.util.loadUrl
+import com.wtransnet.training.kotlin.trainingkotlinapp.util.mapLegoType
 import com.wtransnet.training.kotlin.trainingkotlinapp.model.LegoItem
 import kotlinx.android.synthetic.main.lego_item.view.*
 

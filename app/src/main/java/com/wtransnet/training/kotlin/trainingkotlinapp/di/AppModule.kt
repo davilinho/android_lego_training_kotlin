@@ -1,6 +1,6 @@
 package com.wtransnet.training.kotlin.trainingkotlinapp.di
 
-import com.wtransnet.training.kotlin.trainingkotlinapp.CustomApplication
+import com.wtransnet.training.kotlin.trainingkotlinapp.app.CustomApplication
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -10,6 +10,7 @@ import javax.inject.Singleton
 */
 @Module
 class AppModule(val app: CustomApplication) {
-    @Provides @Singleton
+    @Provides
+    @Singleton
     fun provideApp() = app
 }

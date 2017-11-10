@@ -5,13 +5,13 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.wtransnet.training.kotlin.trainingkotlinapp.R
-import com.wtransnet.training.kotlin.trainingkotlinapp.app
 import com.wtransnet.training.kotlin.trainingkotlinapp.log.Logger
 import com.wtransnet.training.kotlin.trainingkotlinapp.model.LegoItem
 import com.wtransnet.training.kotlin.trainingkotlinapp.modules.MainModule
-import com.wtransnet.training.kotlin.trainingkotlinapp.navigateTo
 import com.wtransnet.training.kotlin.trainingkotlinapp.presenter.MainPresenter
-import com.wtransnet.training.kotlin.trainingkotlinapp.snack
+import com.wtransnet.training.kotlin.trainingkotlinapp.util.app
+import com.wtransnet.training.kotlin.trainingkotlinapp.util.navigateTo
+import com.wtransnet.training.kotlin.trainingkotlinapp.util.snack
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(), IMainView {
 
     @Inject lateinit var presenter: MainPresenter
 
+    private val logger = Logger.instance
     private val adapter = LegoAdapter(emptyList()) { onClickListener(it) }
     private val component by lazy { app.component.plus(MainModule(this)) }
     private lateinit var currentFilter: LegoItem.LegoType
@@ -26,11 +27,14 @@ class MainActivity : AppCompatActivity(), IMainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Logger.instance.debug<MainActivity>("Iniciando onCreate")
+
+        logger.debug<MainActivity>("Iniciando onCreate")
+
         inject()
         initSwipe()
         initAdapter()
         loadImages()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,8 +51,9 @@ class MainActivity : AppCompatActivity(), IMainView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showLoading() {
+    override fun showLoading(callback: () -> Unit) {
         swipe.isRefreshing = true
+        callback()
     }
 
     override fun hideLoading() {
@@ -60,13 +65,18 @@ class MainActivity : AppCompatActivity(), IMainView {
             data = list
             notifyDataSetChanged()
         }
-        Logger.instance.info<MainActivity>("Recuperados un total de ${list.size} legos!")
+        logger.info<MainActivity>("Recuperados un total de ${list.size} legos!")
         snack("Recuperados un total de ${list.size} legos!")
         callback()
     }
 
     override fun navigateToDetail(id: Int) {
         navigateTo<DetailActivity>(id.toString())
+    }
+
+    override fun showOfflineMessage() {
+        logger.warning<MainActivity>("Perdida la conexión, por favor espere...")
+        snack("Perdida la conexión, por favor espere...")
     }
 
     private fun initSwipe() {

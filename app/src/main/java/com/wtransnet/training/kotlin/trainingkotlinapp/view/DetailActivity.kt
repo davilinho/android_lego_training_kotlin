@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.wtransnet.training.kotlin.trainingkotlinapp.*
+import com.wtransnet.training.kotlin.trainingkotlinapp.R
+import com.wtransnet.training.kotlin.trainingkotlinapp.log.Logger
 import com.wtransnet.training.kotlin.trainingkotlinapp.model.LegoItem
 import com.wtransnet.training.kotlin.trainingkotlinapp.modules.DetailModule
 import com.wtransnet.training.kotlin.trainingkotlinapp.presenter.DetailPresenter
+import com.wtransnet.training.kotlin.trainingkotlinapp.util.*
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
 
@@ -19,6 +21,7 @@ class DetailActivity: AppCompatActivity(), IDetailView {
 
     @Inject lateinit var presenter: DetailPresenter
 
+    private val logger = Logger.instance
     private val component by lazy { app.component.plus(DetailModule(this)) }
     private lateinit var item: LegoItem
 
@@ -44,6 +47,15 @@ class DetailActivity: AppCompatActivity(), IDetailView {
 
     override fun showInfoDetail(message: String) {
         toast(message)
+    }
+
+    override fun showLoading(callback: () -> Unit) { }
+
+    override fun hideLoading() { }
+
+    override fun showOfflineMessage() {
+        logger.warning<MainActivity>("Perdida la conexión, por favor espere...")
+        snack("Perdida la conexión, por favor espere...")
     }
 
     private fun loadDetail(intent: Intent) {
