@@ -1,5 +1,6 @@
 package com.wtransnet.training.kotlin.trainingkotlinapp.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.NavUtils
@@ -40,6 +41,9 @@ class DetailActivity: AppCompatActivity(), IDetailView {
         return super.onOptionsItemSelected(item)
     }
 
+    override val context: Context
+        get() = this
+
     override fun showDetail(item: LegoItem) {
         fillItem(item)
         loadItemData()
@@ -52,6 +56,11 @@ class DetailActivity: AppCompatActivity(), IDetailView {
     override fun showLoading(callback: () -> Unit) { }
 
     override fun hideLoading() { }
+
+    override fun showError(message: String) {
+        logger.error<MainActivity>(message)
+        snack(message)
+    }
 
     override fun showOfflineMessage() {
         logger.warning<MainActivity>("Perdida la conexión, por favor espere...")

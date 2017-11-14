@@ -5,20 +5,27 @@ import com.birbit.android.jobqueue.JobManager
 import com.birbit.android.jobqueue.config.Configuration
 import com.birbit.android.jobqueue.log.CustomLogger
 import com.wtransnet.training.kotlin.trainingkotlinapp.log.Logger
+import com.wtransnet.training.kotlin.trainingkotlinapp.result.Result
 import com.wtransnet.training.kotlin.trainingkotlinapp.useCase.IUseCase
 
 /**
 * Created by davidmartin on 6/11/17.
 */
 @Suppress("UNUSED_PARAMETER")
-class Executor<T1, T2>(private val context: Context, private val priority: Priority): IExecutor<T1, T2> {
+class Executor(private val context: Context, private val priority: Priority): IExecutor {
 
     enum class Priority(value: Int) {
         LOW(0), MID(10), HIGH(100)
     }
 
-    override fun addJobInBackground(request: T1?, useCase: IUseCase<T1, T2>, offlineCallback: () -> Unit,
-                                    onlineCallback: (T2) -> Unit) {
+    override fun <T1, T2> addJobInBackground(useCase: IUseCase<T1, T2>, offlineCallback: () -> Unit,
+                                             onlineCallback: (Result<T2>) -> Unit) {
+        getJobManager().addJobInBackground(JobExecutor(context, null, useCase, offlineCallback, onlineCallback,
+                priority))
+    }
+
+    override fun <T1, T2> addJobInBackground(request: T1?, useCase: IUseCase<T1, T2>, offlineCallback: () -> Unit,
+                                             onlineCallback: (Result<T2>) -> Unit) {
         getJobManager().addJobInBackground(JobExecutor(context, request, useCase, offlineCallback, onlineCallback,
                 priority))
     }
@@ -49,7 +56,11 @@ class Executor<T1, T2>(private val context: Context, private val priority: Prior
     }
 }
 
-interface IExecutor<T1, T2> {
-    fun addJobInBackground(request: T1?, useCase: IUseCase<T1, T2>, offlineCallback: () -> Unit,
-                           onlineCallback: (T2) -> Unit)
+interface IExecutor {
+
+    fun <T1, T2> addJobInBackground(useCase: IUseCase<T1, T2>, offlineCallback: () -> Unit,
+                                    onlineCallback: (Result<T2>) -> Unit)
+
+    fun <T1, T2> addJobInBackground(request: T1?, useCase: IUseCase<T1, T2>, offlineCallback: () -> Unit,
+                           onlineCallback: (Result<T2>) -> Unit)
 }

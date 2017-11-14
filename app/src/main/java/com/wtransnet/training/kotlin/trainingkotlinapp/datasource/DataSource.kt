@@ -7,7 +7,7 @@ import com.wtransnet.training.kotlin.trainingkotlinapp.model.LegoItem
 */
 class DataSource {
 
-    fun retrieveLegoList(): List<LegoItem> {
+    fun retrieveLegoList(): List<LegoItem>? {
         return (1..9).map { LegoItem(it, "Lego $it", "https://randomuser.me/api/portraits/lego/$it.jpg",
                 getLegoType(it)) }
     }
@@ -16,7 +16,7 @@ class DataSource {
         return if (id % 2 == 0) LegoItem.LegoType.WITH_HAT else LegoItem.LegoType.WITHOUT_HAT
     }
 
-    fun retrieveLego(id: Int): LegoItem {
-        return retrieveLegoList().first { it.id == id }
+    fun retrieveLego(id: Int): LegoItem? {
+        return retrieveLegoList()?.first { it.id == id }
     }
 }

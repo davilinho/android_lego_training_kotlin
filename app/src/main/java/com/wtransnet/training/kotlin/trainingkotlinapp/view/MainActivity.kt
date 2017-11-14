@@ -1,5 +1,6 @@
 package com.wtransnet.training.kotlin.trainingkotlinapp.view
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -15,7 +16,7 @@ import com.wtransnet.training.kotlin.trainingkotlinapp.util.snack
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), IMainView {
+class MainActivity: AppCompatActivity(), IMainView {
 
     @Inject lateinit var presenter: MainPresenter
 
@@ -51,6 +52,9 @@ class MainActivity : AppCompatActivity(), IMainView {
         return super.onOptionsItemSelected(item)
     }
 
+    override val context: Context
+        get() = this
+
     override fun showLoading(callback: () -> Unit) {
         swipe.isRefreshing = true
         callback()
@@ -74,9 +78,16 @@ class MainActivity : AppCompatActivity(), IMainView {
         navigateTo<DetailActivity>(id.toString())
     }
 
+    override fun showError(message: String) {
+        logger.error<MainActivity>(message)
+        snack(message)
+        hideLoading()
+    }
+
     override fun showOfflineMessage() {
         logger.warning<MainActivity>("Perdida la conexión, por favor espere...")
         snack("Perdida la conexión, por favor espere...")
+        hideLoading()
     }
 
     private fun initSwipe() {
