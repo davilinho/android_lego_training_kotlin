@@ -8,4 +8,5 @@ import com.wtransnet.training.kotlin.trainingkotlinapp.model.LegoItem
 interface IMainView: IView {
     fun showImages(list: List<LegoItem>, callback: () -> Unit)
     fun navigateToDetail(id: Int)
+    fun deleteItemFeedback(item: LegoItem)
 }

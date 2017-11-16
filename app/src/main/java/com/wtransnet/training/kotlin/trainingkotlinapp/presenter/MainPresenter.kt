@@ -40,4 +40,8 @@ class MainPresenter @Inject constructor(val view: MainActivity, private val useC
     fun loadDetail(id: Int) {
         view.navigateToDetail(id)
     }
+
+    fun deleteLegoItem(item: LegoItem) {
+        view.deleteItemFeedback(item)
+    }
 }

@@ -3,14 +3,12 @@ package com.wtransnet.training.kotlin.trainingkotlinapp.util
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.support.design.widget.Snackbar
 import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.wtransnet.training.kotlin.trainingkotlinapp.R
 import com.wtransnet.training.kotlin.trainingkotlinapp.app.CustomApplication
 import com.wtransnet.training.kotlin.trainingkotlinapp.model.LegoItem
-import org.jetbrains.anko.contentView
 
 /**
 * Created by davidmartin on 23/10/17.
@@ -21,8 +19,6 @@ val Activity.app: CustomApplication
 
 fun ImageView.loadUrl(url: String): Any =
         try { Glide.with(context).load(url).into(this) } catch (e: IllegalArgumentException) { }
-
-fun Activity.snack(message: String) = Snackbar.make(contentView!!, message, Snackbar.LENGTH_SHORT).show()
 
 fun Activity.toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 

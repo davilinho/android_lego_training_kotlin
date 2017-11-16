@@ -41,6 +41,17 @@
             android:layout_gravity="center_vertical"
             android:gravity="end"/>
 
+        <ImageButton
+            android:id="@+id/lego_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_delete"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:background="@android:color/transparent"
+            android:tint="@android:color/holo_blue_light"
+            android:contentDescription="@string/blank"/>
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
