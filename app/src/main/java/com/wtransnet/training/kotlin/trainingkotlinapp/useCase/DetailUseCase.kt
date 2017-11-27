@@ -10,9 +10,8 @@ import javax.inject.Inject
 /**
 * Created by davidmartin on 10/11/17.
 */
-class DetailUseCase @Inject constructor(private val repository: Repository): IUseCase<Int, LegoItem> {
+open class DetailUseCase @Inject constructor(private val repository: Repository): IUseCase<Int, LegoItem> {
 
-    override fun execute(request: Int?): Observable<Result<LegoItem>> {
-        return repository.retrieveDetail(request!!).observeOn(AndroidSchedulers.mainThread())
-    }
+    override fun execute(request: Int?): Observable<Result<LegoItem>> =
+            repository.retrieveDetail(request!!).observeOn(AndroidSchedulers.mainThread())
 }

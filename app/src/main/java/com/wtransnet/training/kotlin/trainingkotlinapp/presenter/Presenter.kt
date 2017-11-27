@@ -10,19 +10,19 @@ open class Presenter(private val v: IView, priority: Executor.Priority = Executo
 
     val executor: Executor = Executor(v.context, priority)
 
-    protected fun showLoading(callback: () -> Unit) {
+    fun showLoading(callback: () -> Unit) {
         v.showLoading { callback() }
     }
 
-    protected fun hideLoading() {
+    fun hideLoading() {
         v.hideLoading()
     }
 
-    protected fun showError(message: String) {
+    fun showError(message: String) {
         v.showError(message)
     }
 
-    protected fun showOfflineMessage() {
+    fun showOfflineMessage() {
         v.showOfflineMessage()
     }
 }

@@ -10,9 +10,9 @@ import javax.inject.Inject
 /**
 * Created by davidmartin on 24/10/17.
 */
-class Repository @Inject constructor(private val dataSource: DataSource) {
+open class Repository @Inject constructor(private val dataSource: DataSource) {
 
-    fun retrieveList(): Observable<Result<List<LegoItem>>> {
+    open fun retrieveList(): Observable<Result<List<LegoItem>>> {
         val legoList = dataSource.retrieveLegoList()
         return if (!legoList?.isEmpty()!!) {
             Observable.defer { Observable.just(Result(legoList)) }
@@ -21,7 +21,7 @@ class Repository @Inject constructor(private val dataSource: DataSource) {
         }
     }
 
-    fun retrieveDetail(id: Int): Observable<Result<LegoItem>> {
+    open fun retrieveDetail(id: Int): Observable<Result<LegoItem>> {
         val lego = dataSource.retrieveLego(id)
         return if (lego != null) {
             return Observable.defer { Observable.just(Result(lego)) }

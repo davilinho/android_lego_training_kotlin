@@ -31,9 +31,8 @@ class JobExecutor<T1, T2>(private val context: Context, private val request: T1?
         })
     }
 
-    override fun shouldReRunOnThrowable(throwable: Throwable, runCount: Int, maxRunCount: Int): RetryConstraint {
-        return RetryConstraint.createExponentialBackoff(runCount, 1000)
-    }
+    override fun shouldReRunOnThrowable(throwable: Throwable, runCount: Int, maxRunCount: Int): RetryConstraint =
+            RetryConstraint.createExponentialBackoff(runCount, 1000)
 
     override fun onCancel(cancelReason: Int, throwable: Throwable?) {
         println("[Cancel reason $cancelReason] - Cause: ${throwable?.cause}")

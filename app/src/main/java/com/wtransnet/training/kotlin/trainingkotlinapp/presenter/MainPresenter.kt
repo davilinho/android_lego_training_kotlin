@@ -4,13 +4,13 @@ import com.wtransnet.training.kotlin.trainingkotlinapp.jobqueue.Executor
 import com.wtransnet.training.kotlin.trainingkotlinapp.model.LegoItem
 import com.wtransnet.training.kotlin.trainingkotlinapp.result.Result
 import com.wtransnet.training.kotlin.trainingkotlinapp.useCase.MainUseCase
-import com.wtransnet.training.kotlin.trainingkotlinapp.view.MainActivity
+import com.wtransnet.training.kotlin.trainingkotlinapp.view.IMainView
 import javax.inject.Inject
 
 /**
 * Created by davidmartin on 23/10/17.
 */
-class MainPresenter @Inject constructor(val view: MainActivity, private val useCase: MainUseCase):
+class MainPresenter @Inject constructor(val view: IMainView, private val useCase: MainUseCase):
         Presenter(view, Executor.Priority.HIGH) {
 
     fun loadImages() {

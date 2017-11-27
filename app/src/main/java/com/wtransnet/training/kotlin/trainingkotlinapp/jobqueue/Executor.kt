@@ -12,7 +12,7 @@ import com.wtransnet.training.kotlin.trainingkotlinapp.useCase.IUseCase
 * Created by davidmartin on 6/11/17.
 */
 @Suppress("UNUSED_PARAMETER")
-class Executor(private val context: Context, private val priority: Priority): IExecutor {
+class Executor(private val context: Context?, private val priority: Priority): IExecutor {
 
     enum class Priority(value: Int) {
         LOW(0), MID(10), HIGH(100)
@@ -20,18 +20,23 @@ class Executor(private val context: Context, private val priority: Priority): IE
 
     override fun <T1, T2> addJobInBackground(useCase: IUseCase<T1, T2>, offlineCallback: () -> Unit,
                                              onlineCallback: (Result<T2>) -> Unit) {
-        getJobManager().addJobInBackground(JobExecutor(context, null, useCase, offlineCallback, onlineCallback,
-                priority))
+        getJobManager().addJobInBackground(context?.let {
+            JobExecutor(it, null, useCase, offlineCallback, onlineCallback,
+                priority)
+        })
     }
 
     override fun <T1, T2> addJobInBackground(request: T1?, useCase: IUseCase<T1, T2>, offlineCallback: () -> Unit,
                                              onlineCallback: (Result<T2>) -> Unit) {
-        getJobManager().addJobInBackground(JobExecutor(context, request, useCase, offlineCallback, onlineCallback,
-                priority))
+        getJobManager().addJobInBackground(context?.let {
+            JobExecutor(it, request, useCase, offlineCallback, onlineCallback,
+                priority)
+        })
     }
 
     private fun getJobManager(): JobManager {
-        return JobManager(Configuration.Builder(context)
+        return JobManager(context?.let {
+            Configuration.Builder(it)
                 .minConsumerCount(1)
                 .maxConsumerCount(3)
                 .loadFactor(3)
@@ -52,7 +57,8 @@ class Executor(private val context: Context, private val priority: Priority): IE
                     override fun v(text: String, vararg args: Any) {
                         Logger.instance.info<JobManager>(String.format(text, *args))
                     }
-                }).build())
+                }).build()
+        })
     }
 }
 

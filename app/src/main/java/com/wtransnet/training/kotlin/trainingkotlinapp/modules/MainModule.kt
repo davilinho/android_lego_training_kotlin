@@ -24,4 +24,5 @@ class MainModule(private val activity: MainActivity) {
 
     @Provides
     fun provideDataSource() = DataSource()
+
 }

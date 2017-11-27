@@ -14,8 +14,6 @@ import com.wtransnet.training.kotlin.trainingkotlinapp.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-
-
 class MainActivity: AppCompatActivity(), IMainView {
 
     @Inject lateinit var presenter: MainPresenter
